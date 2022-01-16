@@ -1,0 +1,36 @@
+{
+  "name": "api_jobinone",
+  "version": "1.0.0",
+  "description": "Scraper to find a job",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BCollignonEcv/api_jobinone.git"
+  },
+  "keywords": [
+    "scraper",
+    "node",
+    "job"
+  ],
+  "author": "Baptiste COLLIGNON",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BCollignonEcv/api_jobinone/issues"
+  },
+  "homepage": "https://github.com/BCollignonEcv/api_jobinone#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "dotenv": "^12.0.4",
+    "express": "^4.17.2",
+    "express-joi-validation": "^5.0.1",
+    "joi": "^17.5.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.13.0",
+    "sequelize-cli": "^6.4.1",
+    "uuid": "^8.3.2"
+  }
+}
