@@ -12,7 +12,8 @@ userSchema.create = Joi.object().keys({
     lastname: basicSchemas.nameSchema.required(),
     username: basicSchemas.nameSchema.required(),
     email: basicSchemas.emailSchema.required(),
-    password: basicSchemas.nameSchema.required(),
+    password: basicSchemas.nameSchema.required().strict(),
+    confirmPassword: basicSchemas.nameSchema.valid(Joi.ref('password')).required().strict()
 });
 
 userSchema.update = Joi.object().keys({

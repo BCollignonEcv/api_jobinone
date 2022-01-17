@@ -8,9 +8,11 @@ sourceSchema.id = Joi.object().keys({
 });
 
 sourceSchema.create = Joi.object().keys({
+    name: basicSchemas.nameSchema.required(),
     baseUrl: basicSchemas.urlSchema.required(),
     location: basicSchemas.textSchema.required(),
     search: basicSchemas.textSchema.required(),
+    jobOfferTag: basicSchemas.tagSchema.required(),
     titleTag: basicSchemas.tagSchema.required(),
     companyTag: basicSchemas.tagSchema.required(),
     urlTag: basicSchemas.tagSchema.required(),
@@ -18,9 +20,11 @@ sourceSchema.create = Joi.object().keys({
 });
 
 sourceSchema.update = Joi.object().keys({
+    name: basicSchemas.nameSchema,
     baseUrl: basicSchemas.urlSchema,
     location: basicSchemas.textSchema,
     search: basicSchemas.textSchema,
+    jobOfferTag: basicSchemas.tagSchema,
     titleTag: basicSchemas.tagSchema,
     companyTag: basicSchemas.tagSchema,
     urlTag: basicSchemas.tagSchema,
