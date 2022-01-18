@@ -8,6 +8,7 @@ sourceSchema.id = Joi.object().keys({
 });
 
 sourceSchema.create = Joi.object().keys({
+    enable: basicSchemas.booleanSchema.required(),
     name: basicSchemas.nameSchema.required(),
     baseUrl: basicSchemas.urlSchema.required(),
     location: basicSchemas.textSchema.required(),
@@ -20,6 +21,7 @@ sourceSchema.create = Joi.object().keys({
 });
 
 sourceSchema.update = Joi.object().keys({
+    enable: basicSchemas.booleanSchema,
     name: basicSchemas.nameSchema,
     baseUrl: basicSchemas.urlSchema,
     location: basicSchemas.textSchema,

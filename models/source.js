@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Source.init({
+    enable: DataTypes.BOOLEAN,
     name: DataTypes.STRING,
     baseUrl: DataTypes.STRING,
     location: DataTypes.STRING,

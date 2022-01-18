@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = {
     getSources: async (req, res) => {
         try{
-            let data = await Source.findAll();
+            let data = await Source.findAll({ where: { enable: true }});
             if(data){
                 res.status(302).json(data);
             }else{
