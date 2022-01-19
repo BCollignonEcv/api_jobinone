@@ -42,12 +42,16 @@ module.exports = {
     },
     createUser: async (req, res) => {
         try{
+            if(req.body.password !== req.body.passwordConfirm){
+                throw `Password need to be identic`;
+            }
             delete req.body.passwordConfirm;
             let user = req.body;
             user.id = uuidv4();
-            await bcrypt.hash(req.body.password, 10, function(err, hash) {
-                user.password = hash;
+            user.password = bcrypt.hash(req.body.password, 10, function(err, hash) {
+                return hash;
             });
+            console.log(user)
             let data = await User.create(user)
             if(data){
                 res.json(data);
