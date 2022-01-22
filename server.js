@@ -2,9 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const sourcesRoutes = require('./routes/source.routes');
-const userRoutes = require('./routes/user.routes');
-const jobRoutes = require('./routes/job.routes');
+const sourcesAdminRoutes = require('./routes/sourceAdmin.routes');
+const userAdminRoutes = require('./routes/userAdmin.routes');
+const userPublicRoutes = require('./routes/userPublic.routes');
+const jobPublicRoutes = require('./routes/jobPublic.routes');
 
 const app = express();
 
@@ -13,12 +14,12 @@ const PORT = process.env.NODE_PORT || 8080;
 app.use(bodyParser.json());
 
 // Routes Admin
-app.use('/admin/sources', sourcesRoutes);
-app.use('/admin/users', userRoutes);
+app.use('/admin/sources', sourcesAdminRoutes);
+app.use('/admin/users', userAdminRoutes);
 
 // Routes Api
-app.use('/api/users', userRoutes);
-app.use('/api/jobs', jobRoutes);
+app.use('/api/users', userPublicRoutes);
+app.use('/api/jobs', jobPublicRoutes);
 
 app.get('/', (req, res) => {
     res.send("Welcome on Jobinone")

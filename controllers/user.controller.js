@@ -2,8 +2,23 @@ const models = require("../models");
 const User = models.User;
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
+    loginUser: async(req, res) => {
+        const { username, password } = req.body;
+        const user = await User.findOne({ where: { username: username } });
+        const match = await bcrypt.compare(password, user.password);
+
+        if (match) {
+            const accessToken = jwt.sign({ username: user.username }, process.env.SECRET_TOKEN);
+            res.json({
+                accessToken
+            });
+        } else {
+            res.send('Username or password incorrect');
+        }
+    },
     getUsers: async(req, res) => {
         try {
             const options = {};
