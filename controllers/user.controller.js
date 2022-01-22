@@ -4,114 +4,100 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 
 module.exports = {
-    getUsers: async (req, res) => {
-        try{
-            let data = await User.findAll();
-            if(data){
-                res.status(302).json(data);
-            }else{
-                res.status(500).send({
-                    message:
-                    err.message || "Some error occurred while retrieving Users."
-                });
-            }
-        }catch(err){
-            res.status(500).send({
-                message:
-                err.message || "Some error occurred while retrieving Users."
+    getUsers: async(req, res) => {
+        try {
+            const options = {};
+            const data = await User.findAll();
+            return res.status(302).json(data);
+        } catch (err) {
+            return res.status(500).send({
+                message: err.message || "Some error occurred while retrieving Users."
             });
         }
     },
-    getUser: async (req, res) => {
-        try{
+    getUser: async(req, res) => {
+        try {
             const id = req.params.id;
-            let data = await User.findByPk(id);
-            if(data){
-                res.status(302).json(data);
-            }else{
-                res.status(404).send({
+            const data = await User.findByPk(id);
+            if (data) {
+                return res.status(302).json(data);
+            } else {
+                return res.status(404).send({
                     message: "User not found !"
                 });
             }
-        }catch(err){
-            res.status(500).send({
-                message:
-                err.message || "Some error occurred while retrieving Users."
+        } catch (err) {
+            return res.status(500).send({
+                message: err.message || "Some error occurred while retrieving Users."
             });
         }
     },
-    createUser: async (req, res) => {
-        try{
-            if(req.body.password !== req.body.passwordConfirm){
-                throw `Password need to be identic`;
+    createUser: async(req, res) => {
+        try {
+            if (req.body.password !== req.body.confirmPassword) {
+                throw { message: `Password need to be identic` };
             }
-            delete req.body.passwordConfirm;
+            delete req.body.confirmPassword;
             let user = req.body;
             user.id = uuidv4();
-            user.password = bcrypt.hash(req.body.password, 10, function(err, hash) {
-                return hash;
-            });
-            console.log(user)
+            user.password = await bcrypt.hash(req.body.password, 10);
             let data = await User.create(user)
-            if(data){
+            if (data) {
                 res.json(data);
-            }else{
+            } else {
                 throw `Some error occurred while creating Users.`;
             }
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
-                message:
-                err.message || "Some error occurred while creating Users."
+                message: err.message || "Some error occurred while creating Users."
             });
         }
     },
-    updateUser: async (req, res) => {
-        try{
+    updateUser: async(req, res) => {
+        try {
             const id = req.params.id;
-            if(!id){
+            if (!id) {
                 res.status(400).send({
                     message: "ID can not be empty!"
                 });
             }
             let data = await User.update(req.body, {
-                where: {id: id}
+                where: { id: id }
             })
-            if(data){
+            if (data) {
                 res.status(302).json(data);
-            }else{
+            } else {
                 res.status(404).send({
                     message: "User not found !"
                 });
             }
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
-                message:
-                err.message || "Some error occurred while retrieving Users."
+                message: err.message || "Some error occurred while retrieving Users."
             });
         }
     },
-    deleteUser: async (req, res) => {
+    deleteUser: async(req, res) => {
         try {
             const id = req.params.id;
-            if(!id){
+            if (!id) {
                 res.status(400).send({
                     message: "ID can not be empty!"
                 });
             }
-            let data = await User.destroy({where: { id: id }});
-            if(data === 1){
+            let data = await User.destroy({ where: { id: id } });
+            if (data === 1) {
                 res.status(202).send({
                     message: "User deleted !"
                 });
-            }else{
+            } else {
                 res.status(404).send({
                     message: `User not found !`
                 });
-            }  
+            }
         } catch (err) {
             res.status(500).send({
-                message:
-                err.message || "Some error occurred while deleting User."
+                message: err.message || "Some error occurred while deleting User."
             });
         }
     }
