@@ -1,44 +1,47 @@
 {
-  "name": "api_jobinone",
-  "version": "1.0.0",
-  "description": "Scraper to find a job",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon server.js",
-    "dev_debug": "npx nodemon --inspect server.js",
-    "start": "sh start.sh"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BCollignonEcv/api_jobinone.git"
-  },
-  "keywords": [
-    "scraper",
-    "node",
-    "job"
-  ],
-  "author": "Baptiste COLLIGNON",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/BCollignonEcv/api_jobinone/issues"
-  },
-  "homepage": "https://github.com/BCollignonEcv/api_jobinone#readme",
-  "dependencies": {
-    "axios": "^0.24.0",
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.1",
-    "cheerio": "^1.0.0-rc.10",
-    "dotenv": "^12.0.4",
-    "express": "^4.17.2",
-    "express-joi-validation": "^5.0.1",
-    "got": "^12.0.1",
-    "joi": "^17.5.0",
-    "jsdom": "^19.0.0",
-    "jsonwebtoken": "^8.5.1",
-    "sequelize": "^6.13.0",
-    "sequelize-cli": "^6.4.1",
-    "sqlite3": "^5.0.2",
-    "uuid": "^8.3.2"
-  }
+    "name": "api_jobinone",
+    "version": "1.0.0",
+    "description": "Scraper to find a job",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "npx nodemon server.js",
+        "dev_debug": "npx nodemon --inspect server.js",
+        "start": "sh start.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BCollignonEcv/api_jobinone.git"
+    },
+    "keywords": [
+        "scraper",
+        "node",
+        "job"
+    ],
+    "author": "Baptiste COLLIGNON",
+    "license": "ISC",
+    "engines": {
+        "node": "16.x"
+    },
+    "bugs": {
+        "url": "https://github.com/BCollignonEcv/api_jobinone/issues"
+    },
+    "homepage": "https://github.com/BCollignonEcv/api_jobinone#readme",
+    "dependencies": {
+        "axios": "^0.24.0",
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.19.1",
+        "cheerio": "^1.0.0-rc.10",
+        "dotenv": "^12.0.4",
+        "express": "^4.17.2",
+        "express-joi-validation": "^5.0.1",
+        "got": "^12.0.1",
+        "joi": "^17.5.0",
+        "jsdom": "^19.0.0",
+        "jsonwebtoken": "^8.5.1",
+        "sequelize": "^6.13.0",
+        "sequelize-cli": "^6.4.1",
+        "sqlite3": "^5.0.2",
+        "uuid": "^8.3.2"
+    }
 }

@@ -1,13 +1,6 @@
 # abort on errors
 set -e
 
-# Install package dependency
-npm i
-
-# Clean Sqlite database
-echo db:migrate:undo:all
-npx sequelize-cli db:migrate:undo:all
-
 # Migrate Sqlite database
 echo db:migrate
 npx sequelize-cli db:migrate
