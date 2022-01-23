@@ -1,5 +1,7 @@
 const Joi = require('joi');
 
+const booleanSchema = Joi.boolean();
+
 const idSchema = Joi.string().guid({ version: 'uuidv4' });
 
 const nameSchema = Joi.string().min(6).max(20);
@@ -16,6 +18,7 @@ const dateSchema = Joi.date();
 
 
 module.exports = {
+    booleanSchema,
     nameSchema,
     textSchema,
     tagSchema,

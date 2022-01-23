@@ -1,5 +1,6 @@
 const models = require("../models");
-const scraperUtils = require('../utils/scraper.utils');
+const Scraper = require('../class/scraper.class');
+const sourceController = require('../controllers/source.controller');
 
 const Source = models.Source;
 
@@ -8,20 +9,21 @@ module.exports = {
         try {
             const data = {};
             req.body.search = req.body.search.replace(/\s/g, '%20')
-            let sources = await Source.findAll({
-                raw: true,
-            });
+            let sources = await Source.findAll({ raw: true, where: { enable: true } });
+            // let sources = await sourceController.getSources(req);
             if(sources){
-                for(const source of sources){
-                    data[source.name] = await scraperUtils.scrapeData(req, source);
+                for (const source of sources){
+                    let scraper = new Scraper(req, source);
+                    await scraper.scrapeData();
+                    scraper.sortData();
+                    data.jobs = scraper.get();
                 }
-                if(data){
-                    res.send(data);
+                if(data.jobs){
+                    res.json(data);
                 }
             }
         } catch (err) {
             console.log(err)
         }
-        
     },
 }
