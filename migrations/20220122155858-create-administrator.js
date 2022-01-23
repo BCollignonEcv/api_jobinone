@@ -1,46 +1,33 @@
 'use strict';
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('Sources', {
+        await queryInterface.createTable('Administrators', {
             id: {
                 allowNull: false,
                 primaryKey: true,
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUID
             },
-            enable: {
+            firstname: {
+                type: Sequelize.STRING
+            },
+            lastname: {
+                type: Sequelize.STRING
+            },
+            email: {
+                type: Sequelize.STRING,
                 allowNull: false,
-                type: Sequelize.BOOLEAN,
+                unique: true,
             },
-            name: {
-                allowNull: false,
+            username: {
+                type: Sequelize.STRING,
+                unique: true
+            },
+            password: {
                 type: Sequelize.STRING
             },
-            baseurl: {
-                allowNull: false,
-                type: Sequelize.STRING
-            },
-            location: {
-                type: Sequelize.STRING
-            },
-            search: {
-                allowNull: false,
-                type: Sequelize.STRING
-            },
-            jobOfferTag: {
-                type: Sequelize.STRING
-            },
-            titleTag: {
-                type: Sequelize.STRING
-            },
-            companyTag: {
-                type: Sequelize.STRING
-            },
-            urlTag: {
-                type: Sequelize.STRING
-            },
-            salaryTag: {
-                type: Sequelize.STRING
+            role: {
+                type: Sequelize.UUID
             },
             createdAt: {
                 allowNull: false,
@@ -53,6 +40,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('Sources');
+        await queryInterface.dropTable('Administrators');
     }
 };

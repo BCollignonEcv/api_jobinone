@@ -7,7 +7,7 @@ module.exports = {
         if (authHeader) {
             const token = authHeader.split(' ')[1];
 
-            jwt.verify(token, process.env.SECRET_TOKEN, (err, user) => {
+            jwt.verify(token, process.env.SECRET_TOKEN_API, (err, user) => {
                 if (err) {
                     return res.sendStatus(403);
                 }
@@ -25,7 +25,7 @@ module.exports = {
         if (authHeader) {
             const token = authHeader.split(' ')[1];
 
-            jwt.verify(token, process.env.SECRET_TOKEN, (err, user) => {
+            jwt.verify(token, process.env.SECRET_TOKEN_ADMIN, (err, user) => {
                 if (err) {
                     return res.sendStatus(403);
                 }
