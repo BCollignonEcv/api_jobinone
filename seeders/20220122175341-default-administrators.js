@@ -4,25 +4,14 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     async up(queryInterface, Sequelize) {
-        const roles = (await queryInterface.sequelize.query(`SELECT * from roles;`))[0];
         await queryInterface.bulkInsert('Administrators', [{
             id: uuidv4(),
             firstname: "Baptiste",
             lastname: "Collignon",
             email: "baptiste.collignon@mail-ecv.fr",
             username: "jio_sa",
-            role: roles[0].id,
+            role: "98f9bdc0-c1ba-4187-beea-2bcf099ad819",
             password: await bcrypt.hash("jio_sadmin", 10),
-            createdAt: new Date(),
-            updatedAt: new Date()
-        }, {
-            id: uuidv4(),
-            firstname: "admin",
-            lastname: "admin",
-            email: "admin@mail-ecv.fr",
-            username: "jio_a",
-            role: roles[1].id,
-            password: await bcrypt.hash("jio_admin", 10),
             createdAt: new Date(),
             updatedAt: new Date()
         }], {});

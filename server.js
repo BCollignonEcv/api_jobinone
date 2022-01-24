@@ -10,7 +10,7 @@ const jobRoutes = require('./routes/job.routes');
 
 const app = express();
 
-const PORT = process.env.NODE_PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 

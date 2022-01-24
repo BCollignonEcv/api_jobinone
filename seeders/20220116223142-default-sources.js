@@ -14,7 +14,6 @@ module.exports = {
       jobOfferTag: "div.mosaic-provider-jobcards > a",
       titleTag: "h2.jobTitle span[title]",
       companyTag: "span.companyName",
-      urlTag: "",
       salaryTag: "div.salary-snippet span",
       createdAt: new Date(),
       updatedAt: new Date()

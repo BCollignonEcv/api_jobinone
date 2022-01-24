@@ -8,11 +8,6 @@ module.exports = {
     storage: 'data/test-db.sqlite3'
   },
   production: {
-    username: process.env.RDS_USERNAME,
-    password: process.env.RDS_PASSWORD,
-    database: 'ebdb',
-    port: process.env.RDS_PORT,
-    host: process.env.RDS_HOSTNAME,
-    dialect: 'sqlite'
+    use_env_variable: "DATABASE_URL"
   }
 };
