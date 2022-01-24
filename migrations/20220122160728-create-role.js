@@ -10,10 +10,7 @@ module.exports = {
             },
             name: {
                 type: Sequelize.STRING,
-                unique: {
-                    args: true,
-                    msg: 'Role name is already in use!'
-                }
+                unique:  true
             },
             disableSource: {
                 type: Sequelize.BOOLEAN

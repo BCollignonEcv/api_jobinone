@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "npx nodemon server.js",
         "dev_debug": "npx nodemon --inspect server.js",
-        "local_start": "sh start.sh",
+        "setupDB": "sh setup_db.sh",
         "start": "node server.js"
     },
     "repository": {
@@ -46,5 +46,8 @@
         "sequelize-cli": "^6.4.1",
         "sqlite3": "^5.0.2",
         "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "sqlite3": "^5.0.2"
     }
 }

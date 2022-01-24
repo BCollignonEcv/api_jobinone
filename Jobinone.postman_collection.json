@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1fe29024-733b-432c-85a0-f6cf32cdcae4",
+		"_postman_id": "bdbc957a-2a28-427f-ba95-69fd0d45f447",
 		"name": "Jobinone",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,10 +9,74 @@
 			"name": "Admin",
 			"item": [
 				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "getRoles",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"roleAdmin\", jsonData[1].id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin/roles",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getRole",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin/roles/{{roleAdmin}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"roles",
+										"{{roleAdmin}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Sources",
 					"item": [
 						{
-							"name": "getSource Copy",
+							"name": "createSource",
 							"event": [
 								{
 									"listen": "test",
@@ -26,12 +90,31 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"enable\": false,\r\n        \"name\": \"test\",\r\n        \"location\": \"l\",\r\n        \"baseUrl\": \"https://www.google.fr\",\r\n        \"search\": \"q\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "${{baseUrl}}/admin/sources",
+									"raw": "{{baseUrl}}/admin/sources",
 									"host": [
-										"${{baseUrl}}"
+										"{{baseUrl}}"
 									],
 									"path": [
 										"admin",
@@ -44,12 +127,22 @@
 						{
 							"name": "getSources",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "${{baseUrl}}/admin/sources",
+									"raw": "{{baseUrl}}/admin/sources",
 									"host": [
-										"${{baseUrl}}"
+										"{{baseUrl}}"
 									],
 									"path": [
 										"admin",
@@ -62,17 +155,27 @@
 						{
 							"name": "getSource",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "${{baseUrl}}/admin/sources/${{createdSource}}",
+									"raw": "{{baseUrl}}/admin/sources/{{createdSource}}",
 									"host": [
-										"${{baseUrl}}"
+										"{{baseUrl}}"
 									],
 									"path": [
 										"admin",
 										"sources",
-										"${{createdSource}}"
+										"{{createdSource}}"
 									]
 								}
 							},
@@ -81,17 +184,36 @@
 						{
 							"name": "updateSource",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PATCH",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"enable\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "${{baseUrl}}/admin/sources/${{createdSource}}",
+									"raw": "{{baseUrl}}/admin/sources/{{createdSource}}",
 									"host": [
-										"${{baseUrl}}"
+										"{{baseUrl}}"
 									],
 									"path": [
 										"admin",
 										"sources",
-										"${{createdSource}}"
+										"{{createdSource}}"
 									]
 								}
 							},
@@ -100,17 +222,245 @@
 						{
 							"name": "deleteSource",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "${{baseUrl}}/admin/sources/${{createdSource}}",
+									"raw": "{{baseUrl}}/admin/sources/{{createdSource}}",
 									"host": [
-										"${{baseUrl}}"
+										"{{baseUrl}}"
 									],
 									"path": [
 										"admin",
 										"sources",
-										"${{createdSource}}"
+										"{{createdSource}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "loginUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"accessTokenAdmin\", jsonData.accessToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"jio_sa\",\r\n    \"password\": \"jio_sadmin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/users/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"createdUser\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"create_test\",\r\n    \"lastname\": \"create_test\",\r\n    \"email\": \"create_test@test.fr\",\r\n    \"username\": \"create_test\",\r\n    \"role\": \"{{roleAdmin}}\",\r\n    \"password\": \"create_test\",\r\n    \"confirmPassword\": \"create_test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUsers",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUser",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin/users/{{createdAdminUser}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										"{{createdAdminUser}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateUser",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"test_update\",\r\n    \"lastname\": \"test_update\",\r\n    \"email\": \"test_update@test.fr\",\r\n    \"username\": \"test_update\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/users/{{createdAdminUser}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										"{{createdAdminUser}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteUser",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessTokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin/users/{{createdAdminUser}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										"{{createdAdminUser}}"
 									]
 								}
 							},
@@ -159,6 +509,46 @@
 					"name": "Users",
 					"item": [
 						{
+							"name": "loginUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"accessTokenApi\", jsonData.accessToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"shenor\",\r\n    \"password\": \"baptiste\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/users/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "createUser",
 							"event": [
 								{
@@ -184,24 +574,6 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/api/users",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getUsers",
-							"request": {
-								"method": "GET",
-								"header": [],
 								"url": {
 									"raw": "{{baseUrl}}/api/users",
 									"host": [
@@ -255,116 +627,6 @@
 						},
 						{
 							"name": "deleteUser",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/users/{{createdUser}}",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{createdUser}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Sources",
-					"item": [
-						{
-							"name": "createSource",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);\r",
-											"postman.setEnvironmentVariable(\"createdUser\", jsonData.id);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/users",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getSources",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/users",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getSource",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/users/{{createdUser}}",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{createdUser}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "updateSource",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/users/{{createdUser}}",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{createdUser}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "deleteSource",
 							"request": {
 								"method": "DELETE",
 								"header": [],

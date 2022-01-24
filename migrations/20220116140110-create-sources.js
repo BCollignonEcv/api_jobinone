@@ -9,23 +9,23 @@ module.exports = {
                 defaultValue: Sequelize.UUID
             },
             enable: {
-                allowNull: false,
                 type: Sequelize.BOOLEAN,
+                allowNull: false,
             },
             name: {
+                type: Sequelize.STRING,
                 allowNull: false,
-                type: Sequelize.STRING
             },
-            baseurl: {
+            baseUrl: {
+                type: Sequelize.STRING,
                 allowNull: false,
-                type: Sequelize.STRING
             },
             location: {
                 type: Sequelize.STRING
             },
             search: {
+                type: Sequelize.STRING,
                 allowNull: false,
-                type: Sequelize.STRING
             },
             jobOfferTag: {
                 type: Sequelize.STRING

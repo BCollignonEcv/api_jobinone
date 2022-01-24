@@ -9,6 +9,7 @@ const validator = require('express-joi-validation').createValidator({})
 
 router.post('/login', controller.loginUser)
 
+router.get('/', auth.authenticateAdminJWT, validator.params(userSchema.id), controller.getUsers)
 router.get('/:id', auth.authenticatePublicJWT, validator.params(userSchema.id), controller.getUser)
 router.post('/', validator.body(userSchema.create), controller.createUser)
 router.patch('/:id', auth.authenticatePublicJWT, validator.body(userSchema.update), controller.updateUser)

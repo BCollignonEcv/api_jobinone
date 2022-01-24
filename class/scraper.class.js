@@ -12,7 +12,7 @@ module.exports = class Scraper {
       return this.value;
     },
     set: (req, source) => {
-      this.value = `${source.baseurl}?${source.search}=${req.body.search}&${source.location}=${req.body.location}`;
+      this.value = `${source.baseUrl}?${source.search}=${req.body.search}&${source.location}=${req.body.location}`;
     },
   }
   scrapedData;
@@ -35,6 +35,8 @@ module.exports = class Scraper {
   async scrapeData() {
     await axios.get(this.url.get())
     .then((res) => {
+      console.log(this.url.get());
+      console.log(res);
       this.scrapedData = res.data;
     }).catch((err) => {
       console.error(err)
