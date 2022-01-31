@@ -8,6 +8,10 @@ module.exports = {
     getJobs: async (req, res) => {
         try {
             const data = {};
+            if(req.method === 'GET'){
+                req.body.location = req.query.location;
+                req.body.search = req.query.search;
+            }
             req.body.search = req.body.search.replace(/\s/g, '%20')
             let sources = await Source.findAll({ raw: true, where: { enable: true } });
             // let sources = await sourceController.getSources(req);
