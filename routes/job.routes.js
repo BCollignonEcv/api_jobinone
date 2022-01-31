@@ -7,5 +7,6 @@ const jobSchema = require('../schemas/job.schemas');
 const validator = require('express-joi-validation').createValidator({})
 
 router.post('/', validator.body(jobSchema.search), controller.getJobs)
+router.get('/', validator.params(jobSchema.search), controller.getJobs)
 
 module.exports = router;
