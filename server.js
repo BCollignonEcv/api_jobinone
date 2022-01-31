@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const sourceRoutes = require('./routes/source.routes');
 const administratorRoutes = require('./routes/administrator.routes');
@@ -10,9 +11,10 @@ const jobRoutes = require('./routes/job.routes');
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
+app.use(cors())
 
 // Routes Admin
 app.use('/admin/sources', sourceRoutes);
