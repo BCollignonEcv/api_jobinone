@@ -1,37 +1,41 @@
 'use strict';
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('Administrators', {
+        await queryInterface.createTable('Datamodels', {
             id: {
                 allowNull: false,
                 primaryKey: true,
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUID
             },
-            firstname: {
-                type: Sequelize.STRING,
+            enable: {
+                type: Sequelize.BOOLEAN,
                 allowNull: false,
             },
-            lastname: {
-                type: Sequelize.STRING,
-                allowNull: false,
+            public: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: true,
             },
-            email: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                unique: true,
-            },
-            username: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                unique: true
-            },
-            password: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            role: {
+            user: {
                 type: Sequelize.UUID,
+            },
+            name: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            category: {
+                type: Sequelize.UUIDV4,
+            },
+            url: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            body: {
+                type: Sequelize.JSON,
+                allowNull: false,
+            },
+            tag: {
+                type: Sequelize.JSON,
                 allowNull: false,
             },
             createdAt: {
@@ -45,6 +49,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('Administrators');
+        await queryInterface.dropTable('Datamodels');
     }
 };

@@ -1,14 +1,15 @@
 const basicSchemas = require('./schemas');
 
 const Joi = require('joi');
-const sourceSchema = {};
+const datamodelSchema = {};
 
-sourceSchema.id = Joi.object().keys({
+datamodelSchema.id = Joi.object().keys({
     id: basicSchemas.idSchema.required()
 });
 
-sourceSchema.create = Joi.object().keys({
+datamodelSchema.create = Joi.object().keys({
     enable: basicSchemas.booleanSchema.required(),
+    user: basicSchemas.idSchema,
     name: basicSchemas.textSchema.required(),
     baseUrl: basicSchemas.urlSchema.required(),
     location: basicSchemas.textSchema.required(),
@@ -20,8 +21,9 @@ sourceSchema.create = Joi.object().keys({
     salaryTag: basicSchemas.tagSchema
 });
 
-sourceSchema.update = Joi.object().keys({
+datamodelSchema.update = Joi.object().keys({
     enable: basicSchemas.booleanSchema,
+    user: basicSchemas.idSchema,
     name: basicSchemas.textSchema,
     baseUrl: basicSchemas.urlSchema,
     location: basicSchemas.textSchema,
@@ -33,4 +35,4 @@ sourceSchema.update = Joi.object().keys({
     salaryTag: basicSchemas.tagSchema
 });
 
-module.exports = sourceSchema;
+module.exports = datamodelSchema;

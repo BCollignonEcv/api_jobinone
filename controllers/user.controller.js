@@ -5,18 +5,25 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-    loginUser: async(req, res) => {
-        const { username, password } = req.body;
-        const user = await User.findOne({ where: { username: username } });
-        const match = await bcrypt.compare(password, user.password);
+    authentificate: async(req, res) => {
+        try {
+            const { username, password } = req.body;
+            const user = await User.findOne({ where: { username: username, } });
 
-        if (match) {
-            const accessToken = jwt.sign({ username: user.username }, process.env.SECRET_TOKEN_API);
-            res.json({
-                accessToken
-            });
-        } else {
-            res.send('Username or password incorrect');
+            // Check if user have been found
+            if (!user) {
+                throw { message: `User or Password incorrect`, status: 401 };
+            }
+            const match = await bcrypt.compare(password, user.password);
+
+            // Check if password is the good one
+            if (!match) {
+                throw { message: `User or Password incorrect`, errorStatus: 401 };
+            }
+            const accessToken = jwt.sign({ username: user.username }, process.env.SECRET_TOKEN_ADMIN);
+            res.json({ accessToken });
+        } catch (error) {
+            res.status(error.status).send(error.message || "An error occured");
         }
     },
     getUsers: async(req, res) => {

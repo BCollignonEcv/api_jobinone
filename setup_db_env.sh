@@ -8,6 +8,6 @@ npx sequelize-cli db:migrate
 
 # Add data to database
 npx sequelize-cli db:seed:undo:all
-npx sequelize-cli db:seed --seed 20220116223125-default-data.js
+npx sequelize-cli db:seed --seed 20220116223125-default-data.dev.js
 
 cd -

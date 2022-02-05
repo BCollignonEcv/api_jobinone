@@ -3,11 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 
-const sourceRoutes = require('./routes/source.routes');
-const administratorRoutes = require('./routes/administrator.routes');
+const datamodelRoutes = require('./routes/datamodel.routes');
+const datasetRoutes = require('./routes/dataset.routes');
 const roleRoutes = require('./routes/role.routes');
 const userRoutes = require('./routes/user.routes');
-const jobRoutes = require('./routes/job.routes');
 
 const app = express();
 
@@ -17,13 +16,13 @@ app.use(bodyParser.json());
 app.use(cors())
 
 // Routes Admin
-app.use('/admin/sources', sourceRoutes);
-app.use('/admin/users', administratorRoutes);
 app.use('/admin/roles', roleRoutes);
+app.use('/admin/users', userRoutes);
 
 // Routes Api
+app.use('/api/datasets', datasetRoutes);
+app.use('/api/datamodels', datamodelRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/jobs', jobRoutes);
 
 app.get('/', (req, res) => {
     res.send("Welcome on Jobinone")
