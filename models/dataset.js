@@ -3,28 +3,25 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Administrator extends Model {
+    class Dataset extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            this.belongsTo(models.Role, {
-                foreignKey: "role",
-                allowNull: false,
+            this.belongsTo(models.Category, {
+                foreignKey: "category",
             });
         }
     }
-    Administrator.init({
-        firstname: DataTypes.STRING,
-        lastname: DataTypes.STRING,
-        email: DataTypes.STRING,
-        username: DataTypes.STRING,
-        password: DataTypes.STRING
+    Dataset.init({
+        name: DataTypes.STRING,
+        description: DataTypes.STRING,
+        datamodels: DataTypes.ARRAY(DataTypes.UUIDV4)
     }, {
         sequelize,
-        modelName: 'Administrator',
+        modelName: 'Dataset',
     });
-    return Administrator;
+    return Dataset;
 };

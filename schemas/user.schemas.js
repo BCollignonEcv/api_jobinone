@@ -13,7 +13,8 @@ userSchema.create = Joi.object().keys({
     username: basicSchemas.nameSchema.required(),
     email: basicSchemas.emailSchema.required(),
     password: basicSchemas.nameSchema.required().strict(),
-    confirmPassword: basicSchemas.nameSchema.valid(Joi.ref('password')).required().strict()
+    confirmPassword: basicSchemas.nameSchema.valid(Joi.ref('password')).required().strict(),
+    role: basicSchemas.idSchema,
 });
 
 userSchema.update = Joi.object().keys({
@@ -22,7 +23,8 @@ userSchema.update = Joi.object().keys({
     username: basicSchemas.nameSchema,
     email: basicSchemas.emailSchema,
     password: basicSchemas.nameSchema,
-    confirmPassword: basicSchemas.nameSchema.valid(Joi.ref('password'))
+    confirmPassword: basicSchemas.nameSchema.valid(Joi.ref('password')),
+    role: basicSchemas.idSchema,
 });
 
 module.exports = userSchema;

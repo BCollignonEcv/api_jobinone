@@ -10,17 +10,21 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            this.hasMany(models.Administrator, {
+            this.hasMany(models.User, {
                 foreignKey: "role",
             });
         }
     }
     Role.init({
         name: DataTypes.STRING,
-        disableSource: DataTypes.BOOLEAN,
-        createSource: DataTypes.BOOLEAN,
-        updateSource: DataTypes.BOOLEAN,
-        deleteSource: DataTypes.BOOLEAN,
+        disableDatamodel: DataTypes.BOOLEAN,
+        createDatamodel: DataTypes.BOOLEAN,
+        updateDatamodel: DataTypes.BOOLEAN,
+        deleteDatamodel: DataTypes.BOOLEAN,
+        disableDataset: DataTypes.BOOLEAN,
+        createDataset: DataTypes.BOOLEAN,
+        updateDataset: DataTypes.BOOLEAN,
+        deleteDataset: DataTypes.BOOLEAN,
         createUser: DataTypes.BOOLEAN,
         updateUser: DataTypes.BOOLEAN,
         deleteUser: DataTypes.BOOLEAN

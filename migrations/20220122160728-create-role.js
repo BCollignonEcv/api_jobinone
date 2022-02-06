@@ -10,18 +10,30 @@ module.exports = {
             },
             name: {
                 type: Sequelize.STRING,
-                unique:  true
+                unique: true
             },
-            disableSource: {
+            disableDatamodel: {
                 type: Sequelize.BOOLEAN
             },
-            createSource: {
+            createDatamodel: {
                 type: Sequelize.BOOLEAN
             },
-            updateSource: {
+            updateDatamodel: {
                 type: Sequelize.BOOLEAN
             },
-            deleteSource: {
+            deleteDatamodel: {
+                type: Sequelize.BOOLEAN
+            },
+            disableDataset: {
+                type: Sequelize.BOOLEAN
+            },
+            createDataset: {
+                type: Sequelize.BOOLEAN
+            },
+            updateDataset: {
+                type: Sequelize.BOOLEAN
+            },
+            deleteDataset: {
                 type: Sequelize.BOOLEAN
             },
             createUser: {

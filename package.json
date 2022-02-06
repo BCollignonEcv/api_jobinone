@@ -1,7 +1,7 @@
 {
-    "name": "api_jobinone",
+    "name": "open_scraper",
     "version": "1.0.0",
-    "description": "Scraper to find a job",
+    "description": "Scraper to find what you want",
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
