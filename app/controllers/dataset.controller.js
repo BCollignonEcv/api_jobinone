@@ -1,8 +1,24 @@
-const models = require("../models");
+const models = require("../../models");
 const Dataset = models.Dataset;
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
+    executeDataset: async(req, res) => {
+        try {
+            let data = await Dataset.findAll({ where: { enable: true } });
+            if (data) {
+                res.status(302).json(data);
+            } else {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving Datasets."
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving Datasets."
+            });
+        }
+    },
     getDatasets: async(req, res) => {
         try {
             let data = await Dataset.findAll({ where: { enable: true } });

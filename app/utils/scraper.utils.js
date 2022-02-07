@@ -1,7 +1,6 @@
 'use strict';
 const cheerio = require("cheerio");
 const axios = require('axios');
-const Job = require('../class/job.class');
 
 module.exports = class Scraper {
   source;
@@ -16,7 +15,7 @@ module.exports = class Scraper {
     },
   }
   scrapedData;
-  jobs = [];
+  data = [];
 
   constructor(req, source){
     this.source = source;

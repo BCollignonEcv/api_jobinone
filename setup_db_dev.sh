@@ -5,4 +5,5 @@ set -e
 npx sequelize-cli db:migrate
 
 # Add data to database
-npx sequelize-cli db:seed --seed 20220116223125-default-data.prod.js
+npx sequelize-cli db:seed --seed import-default-data.dev.js
+

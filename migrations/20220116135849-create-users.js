@@ -31,7 +31,7 @@ module.exports = {
                 allowNull: false,
             },
             role: {
-                type: Sequelize.UUIDV4,
+                type: Sequelize.STRING,
             },
             createdAt: {
                 allowNull: false,

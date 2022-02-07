@@ -1,11 +1,27 @@
-const models = require("../models");
+const models = require("../../models");
 const Datamodel = models.Datamodel;
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
+    executeDatamodel: async(req, res) => {
+        try {
+            let data = await Datamodel.findAll();
+            if (data) {
+                res.status(302).json(data);
+            } else {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving Datamodels."
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving Datamodel."
+            });
+        }
+    },
     getDatamodels: async(req, res) => {
         try {
-            let data = await Datamodel.findAll({ where: { enable: true } });
+            let data = await Datamodel.findAll();
             if (data) {
                 res.status(302).json(data);
             } else {
@@ -38,7 +54,7 @@ module.exports = {
     },
     createDatamodel: async(req, res) => {
         try {
-            let datamodel = req.body;
+            const datamodel = req.body;
             datamodel.id = uuidv4();
             let data = await Datamodel.create(datamodel)
             if (data) {

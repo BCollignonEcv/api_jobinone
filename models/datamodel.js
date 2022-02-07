@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         url: DataTypes.STRING,
         public: DataTypes.BOOLEAN,
         body: DataTypes.JSON,
-        tag: DataTypes.JSON
+        tag: DataTypes.JSON,
+        requireProxy: DataTypes.BOOLEAN
     }, {
         sequelize,
         modelName: 'Datamodel',

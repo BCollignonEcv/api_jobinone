@@ -4,24 +4,6 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.bulkInsert('Roles', [{
-            id: uuidv4(),
-            name: "Super Admin",
-            disableDatamodel: true,
-            createDatamodel: true,
-            updateDatamodel: true,
-            deleteDatamodel: true,
-            disableDataset: true,
-            createDataset: true,
-            updateDataset: true,
-            deleteDataset: true,
-            createUser: true,
-            updateUser: true,
-            deleteUser: true,
-            createdAt: new Date(),
-            updatedAt: new Date()
-        }], {});
-
         await queryInterface.bulkInsert('Users', [{
             id: uuidv4(),
             firstname: "Baptiste",
@@ -29,6 +11,7 @@ module.exports = {
             email: "baptiste.collignon@mail-ecv.fr",
             username: "jio_sa",
             password: await bcrypt.hash("jio_sadmin", 10),
+            role: "superadmin",
             createdAt: new Date(),
             updatedAt: new Date()
         }], {});
@@ -36,6 +19,12 @@ module.exports = {
         await queryInterface.bulkInsert('Categories', [{
             id: uuidv4(),
             name: "Jobs",
+            createdAt: new Date(),
+            updatedAt: new Date()
+        },
+        {
+            id: uuidv4(),
+            name: "Profile",
             createdAt: new Date(),
             updatedAt: new Date()
         }], {});
@@ -48,6 +37,7 @@ module.exports = {
             url: "https://fr.indeed.com/emplois",
             body: '{"location": "l", "search": "q"}',
             tag: '{ "jobOfferTag": "div.mosaic-provider-jobcards > a", "titleTag": "h2.jobTitle span[title]", "companyTag": "span.companyName", "salaryTag": "div.salary-snippet span",}',
+            requireProxy: true,
             createdAt: new Date(),
             updatedAt: new Date()
         }], {});
