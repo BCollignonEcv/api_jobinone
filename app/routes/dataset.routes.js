@@ -8,7 +8,7 @@ const auth = require('../middlewares/auth.middleware');
 const validator = require('express-joi-validation').createValidator({})
 
 // GET many Datasets
-router.get('/', controller.getDataset)
+router.get('/', controller.getDatasets)
 
 // GET one Dataset
 router.get('/:id', controller.getDataset)

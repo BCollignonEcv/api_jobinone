@@ -7,8 +7,6 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "npx nodemon server.js",
         "dev_debug": "npx nodemon --inspect server.js",
-        "setup_db_dev": "sh setup_db_dev.sh",
-        "setup_db_prod": "sh setup_db_prod.sh",
         "start": "node server.js"
     },
     "repository": {
@@ -17,8 +15,8 @@
     },
     "keywords": [
         "scraper",
-        "node",
-        "job"
+        "find a job",
+        "find a profile"
     ],
     "author": "Baptiste COLLIGNON",
     "license": "ISC",
@@ -47,7 +45,6 @@
         "pg-hstore": "^2.3.4",
         "sequelize": "^6.13.0",
         "sequelize-cli": "^6.4.1",
-        "sqlite3": "^5.0.2",
         "uuid": "^8.3.2"
     },
     "devDependencies": {

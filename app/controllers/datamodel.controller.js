@@ -5,17 +5,16 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = {
     executeDatamodel: async(req, res) => {
         try {
-            let data = await Datamodel.findAll();
+            const id = req.params.id;
+            let data = await Datamodel.findByPk(id);
             if (data) {
                 res.status(302).json(data);
             } else {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving Datamodels."
-                });
+                throw { message: `Some error occurred while retrieving Datamodels.` };
             }
         } catch (err) {
             res.status(500).send({
-                message: err.message || "Some error occurred while retrieving Datamodel."
+                message: err.message || "Some error occurred while retrieving Datamodels."
             });
         }
     },
@@ -25,9 +24,7 @@ module.exports = {
             if (data) {
                 res.status(302).json(data);
             } else {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving Datamodels."
-                });
+                throw { message: `Some error occurred while retrieving Datamodels.` };
             }
         } catch (err) {
             res.status(500).send({
@@ -58,7 +55,7 @@ module.exports = {
             datamodel.id = uuidv4();
             let data = await Datamodel.create(datamodel)
             if (data) {
-                res.json(data);
+                res.status(201).json(data);
             } else {
                 throw `Some error occurred while creating Datamodel.`;
             }

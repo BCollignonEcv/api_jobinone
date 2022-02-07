@@ -1,24 +1,18 @@
 'use strict';
-const {
-    Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Dataset extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
+
         static associate(models) {
             this.belongsTo(models.Category, {
                 foreignKey: "category",
             });
+            this.belongsToMany(models.Datamodel, { through: 'Dataset_Datamodels' });
         }
     }
     Dataset.init({
         name: DataTypes.STRING,
         description: DataTypes.STRING,
-        datamodels: DataTypes.ARRAY(DataTypes.UUIDV4)
     }, {
         sequelize,
         modelName: 'Dataset',

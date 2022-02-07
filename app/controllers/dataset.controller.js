@@ -5,7 +5,8 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = {
     executeDataset: async(req, res) => {
         try {
-            let data = await Dataset.findAll({ where: { enable: true } });
+            const id = req.params.id;
+            let data = await Dataset.findByPk(id);
             if (data) {
                 res.status(302).json(data);
             } else {
@@ -21,7 +22,7 @@ module.exports = {
     },
     getDatasets: async(req, res) => {
         try {
-            let data = await Dataset.findAll({ where: { enable: true } });
+            let data = await Dataset.findAll({ include: models.Datamodel });
             if (data) {
                 res.status(302).json(data);
             } else {
@@ -38,7 +39,7 @@ module.exports = {
     getDataset: async(req, res) => {
         try {
             const id = req.params.id;
-            let data = await Dataset.findByPk(id);
+            let data = await Dataset.findByPk(id, { include: models.Datamodel });
             if (data) {
                 res.status(302).json(data);
             } else {
@@ -75,6 +76,10 @@ module.exports = {
                 where: { id: id }
             })
             if (data) {
+                const dataset = await Dataset.findByPk(id);
+                if(dataset){
+                    res.status(302).json(dataset);
+                }
                 res.status(302).json(data);
             } else {
                 res.status(404).send({

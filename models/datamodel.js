@@ -2,28 +2,24 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Datamodel extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
         static associate(models) {
-            this.hasOne(models.User, {
+            this.belongsTo(models.User, {
                 foreignKey: "user",
             });
             this.belongsTo(models.Category, {
                 foreignKey: "category",
             });
+            this.belongsToMany(models.Dataset, { through: 'Dataset_Datamodels' });
         }
     }
     Datamodel.init({
         enable: DataTypes.BOOLEAN,
+        public: DataTypes.BOOLEAN,
         name: DataTypes.STRING,
         url: DataTypes.STRING,
-        public: DataTypes.BOOLEAN,
+        requireProxy: DataTypes.BOOLEAN,
         body: DataTypes.JSON,
-        tag: DataTypes.JSON,
-        requireProxy: DataTypes.BOOLEAN
+        tag: DataTypes.JSON
     }, {
         sequelize,
         modelName: 'Datamodel',

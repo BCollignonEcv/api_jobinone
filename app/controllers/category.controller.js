@@ -39,7 +39,7 @@ module.exports = {
             category.id = uuidv4();
             let data = await Category.create(category)
             if (data) {
-                res.json(data);
+                res.status(201).json(data);
             } else {
                 throw `Some error occurred while creating Category.`;
             }
@@ -52,20 +52,16 @@ module.exports = {
     updateCategory: async(req, res) => {
         try {
             const id = req.params.id;
-            if (!id) {
-                res.status(400).send({
-                    message: "ID can not be empty!"
-                });
-            }
             let data = await Category.update(req.body, {
                 where: { id: id }
             })
             if (data) {
-                res.status(302).json(data);
+                const category = await Category.findByPk(id);
+                if(category){
+                    res.status(302).json(category);
+                }
             } else {
-                res.status(404).send({
-                    message: "Category not found !"
-                });
+                throw { message: `Category cannot be found` };
             }
         } catch (err) {
             res.status(500).send({

@@ -3,27 +3,31 @@ const User = models.User;
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { password } = require("pg/lib/defaults");
 
 module.exports = {
     authentificate: async(req, res) => {
         try {
-            const { username, password } = req.body;
-            const user = await User.findOne({ where: { username: username, } });
-
+            const data = {
+                username: req.body.username,
+                password: req.body.password
+            }
+            const user = await User.findOne({ where: { username: data.username } });
+            
             // Check if user have been found
-            if (!user) {
+            if (user) { 
+                if(await bcrypt.compare(data.password, user.password)) {
+                    const accessToken = jwt.sign({ username: user.id, role: user.role }, process.env.SECRET_TOKEN_ADMIN);
+                    const { password, ...userWithoutPassword } = user.dataValues;
+                    res.json({ ...userWithoutPassword, accessToken });
+                }else{
+                    throw { message: `User or Password incorrect`, status: 401 };
+                }
+            }else{
                 throw { message: `User or Password incorrect`, status: 401 };
             }
-            const match = await bcrypt.compare(password, user.password);
-
-            // Check if password is the good one
-            if (!match) {
-                throw { message: `User or Password incorrect`, errorStatus: 401 };
-            }
-            const accessToken = jwt.sign({ username: user.username }, process.env.SECRET_TOKEN_ADMIN);
-            res.json({ accessToken });
         } catch (error) {
-            res.status(error.status).send(error.message || "An error occured");
+            res.status(error.status || 500).send(error.message || "An error occured");
         }
     },
     getUsers: async(req, res) => {
@@ -56,18 +60,21 @@ module.exports = {
     },
     createUser: async(req, res) => {
         try {
-            if (req.body.password !== req.body.confirmPassword) {
+            if (req.body.password === req.body.confirmPassword) {
+                delete req.body.confirmPassword;
+                let data = req.body;
+                data.id = uuidv4();
+                data.password = await bcrypt.hash(req.body.password, 10);
+                let user = await User.create(data)
+                if (user) {
+                    const {password, ...userWithoutPassword} = user.dataValues;
+                    const accessToken = jwt.sign({ username: user.id, role: user.role }, process.env.SECRET_TOKEN_ADMIN);
+                    res.status(201).json({...userWithoutPassword, accessToken});
+                } else {
+                    throw { message: `Some error occurred while creating Users.` };
+                }
+            }else{
                 throw { message: `Password need to be identic` };
-            }
-            delete req.body.confirmPassword;
-            let user = req.body;
-            user.id = uuidv4();
-            user.password = await bcrypt.hash(req.body.password, 10);
-            let data = await User.create(user)
-            if (data) {
-                res.json(data);
-            } else {
-                throw `Some error occurred while creating Users.`;
             }
         } catch (err) {
             res.status(500).send({
@@ -78,20 +85,17 @@ module.exports = {
     updateUser: async(req, res) => {
         try {
             const id = req.params.id;
-            if (!id) {
-                res.status(400).send({
-                    message: "ID can not be empty!"
-                });
-            }
             let data = await User.update(req.body, {
                 where: { id: id }
             })
             if (data) {
-                res.status(302).json(data);
+                const user = await User.findByPk(id);
+                if(user){
+                    const {password, ...userWithoutPassword} = user.dataValues;
+                    res.status(302).json({...userWithoutPassword});
+                }
             } else {
-                res.status(404).send({
-                    message: "User not found !"
-                });
+                throw { message: `User cannot be found` };
             }
         } catch (err) {
             res.status(500).send({

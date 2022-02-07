@@ -20,7 +20,7 @@ module.exports = {
             where: {
                 email: 'baptiste.collignon@mail-ecv.fr',
             },
-          }, ['id']);
+        }, ['id']);
 
         await queryInterface.bulkInsert('Categories', [{
             id: uuidv4(),
@@ -39,7 +39,7 @@ module.exports = {
             where: {
                 name: 'Jobs',
             },
-          }, ['id']);
+        }, ['id']);
 
         await queryInterface.bulkInsert('Datamodels', [{
             id: uuidv4(),
@@ -50,7 +50,7 @@ module.exports = {
             user: user,
             url: "https://fr.indeed.com/emplois",
             body: '{"location": "l", "search": "q"}',
-            tag: '{ "jobOfferTag": "div.mosaic-provider-jobcards > a", "titleTag": "h2.jobTitle span[title]", "companyTag": "span.companyName", "salaryTag": "div.salary-snippet span",}',
+            tag: '{ "jobOfferTag": "div.mosaic-provider-jobcards > a", "titleTag": "h2.jobTitle span[title]", "companyTag": "span.companyName", "salaryTag": "div.salary-snippet span"}',
             requireProxy: true,
             createdAt: new Date(),
             updatedAt: new Date()
@@ -60,14 +60,26 @@ module.exports = {
             where: {
                 name: 'Indeed',
             },
-          }, ['id']);
+        }, ['id']);
 
         await queryInterface.bulkInsert('Datasets', [{
             id: uuidv4(),
             name: "Jobs",
             category: category,
             description: "Le dataset Jobs recupère les offres d'emplois sur les plateformes ci-dessous en fonctionne de vos critères de recherche.",
-            datamodels: [datamodel],
+            createdAt: new Date(),
+            updatedAt: new Date()
+        }], {});
+
+        const dataset = await queryInterface.rawSelect('Datasets', {
+            where: {
+                name: 'Jobs',
+            },
+        }, ['id']);
+
+        await queryInterface.bulkInsert('Dataset_Datamodels', [{
+            datamodelId: datamodel,
+            datasetId: dataset,
             createdAt: new Date(),
             updatedAt: new Date()
         }], {});

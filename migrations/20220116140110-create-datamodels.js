@@ -10,25 +10,23 @@ module.exports = {
             },
             enable: {
                 type: Sequelize.BOOLEAN,
-                allowNull: false,
+                defaultValue: true,
             },
             public: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: true,
             },
-            user: {
-                type: Sequelize.UUID,
-            },
             name: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            category: {
-                type: Sequelize.UUIDV4,
-            },
             url: {
                 type: Sequelize.STRING,
                 allowNull: false,
+            },
+            requireProxy: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false,
             },
             body: {
                 type: Sequelize.JSON,
@@ -38,9 +36,11 @@ module.exports = {
                 type: Sequelize.JSON,
                 allowNull: false,
             },
-            requireProxy: {
-                type: Sequelize.BOOLEAN,
-                defaultValue: false,
+            user: {
+                type: Sequelize.UUIDV4,
+            },
+            category: {
+                type: Sequelize.UUIDV4,
             },
             createdAt: {
                 allowNull: false,

@@ -9,6 +9,7 @@ module.exports = {
                 defaultValue: Sequelize.UUIDV4
             },
             name: {
+                allowNull: false,
                 type: Sequelize.STRING
             },
             description: {
@@ -16,9 +17,6 @@ module.exports = {
             },
             category: {
                 type: Sequelize.UUIDV4
-            },
-            datamodels: {
-                type: Sequelize.ARRAY(Sequelize.UUIDV4)
             },
             createdAt: {
                 allowNull: false,
