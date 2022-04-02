@@ -30,6 +30,38 @@ module.exports = {
             res.status(error.status || 500).send(error.message || "An error occured");
         }
     },
+    // resetPassword: async(req, res) => {
+    //     try {
+    //         const data = {
+    //             username: req.body.username || '',
+    //             password: req.body.password || '',
+    //             newPassword: req.body.newPassword || '',
+    //             confirmPassword: req.body.confirmPassword || ''
+    //         }
+    //         if(data.password === data.confirmPassword){
+    //             const user = await User.findOne({ where: { username: data.username } });
+                    
+    //             // Check if user have been found
+    //             if (user) { 
+    //                 if(await bcrypt.compare(data.password, user.password)) {
+    //                     user.password = await bcrypt.hash(data.newPassword, 10);
+
+    //                     const accessToken = jwt.sign({ username: user.id, role: user.role }, process.env.SECRET_TOKEN_ADMIN);
+    //                     const { password, ...userWithoutPassword } = user.dataValues;
+    //                     res.json({ ...userWithoutPassword, accessToken });
+    //                 }else{
+    //                     throw { message: `User or Password incorrect`, status: 401 };
+    //                 }
+    //             }else{
+    //                 throw { message: `User or Password incorrect`, status: 401 };
+    //             }
+    //         }else{
+    //             throw { message: `Password and confirmation need to be the same`, status: 401 };
+    //         }
+    //     } catch (error) {
+    //         res.status(error.status || 500).send(error.message || "An error occured");
+    //     }
+    // },
     getUsers: async(req, res) => {
         try {
             const options = {};

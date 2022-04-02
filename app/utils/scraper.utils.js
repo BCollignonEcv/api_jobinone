@@ -15,7 +15,7 @@ module.exports = class Scraper {
     },
   }
   scrapedData;
-  data = [];
+  elements = [];
 
   constructor(req, source){
     this.source = source;
@@ -27,7 +27,7 @@ module.exports = class Scraper {
     return {
       url: this.url.get(),
       source: this.source,
-      jobs: this.jobs
+      elements: this.elements
     }
   }
 
