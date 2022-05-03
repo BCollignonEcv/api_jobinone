@@ -1,77 +1,13 @@
 {
 	"info": {
-		"_postman_id": "bdbc957a-2a28-427f-ba95-69fd0d45f447",
-		"name": "Jobinone",
+		"_postman_id": "9f5818b7-89b6-4361-9da0-423ebc110770",
+		"name": "ECV-NODEJS-API-PROJECT",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Admin",
 			"item": [
-				{
-					"name": "Roles",
-					"item": [
-						{
-							"name": "getRoles",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);\r",
-											"postman.setEnvironmentVariable(\"roleAdmin\", jsonData[1].id);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{accessTokenAdmin}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/admin/roles",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"admin",
-										"roles"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getRole",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/admin/roles/{{roleAdmin}}",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"admin",
-										"roles",
-										"{{roleAdmin}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
 				{
 					"name": "Sources",
 					"item": [
@@ -104,7 +40,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n        \"enable\": false,\r\n        \"name\": \"test\",\r\n        \"location\": \"l\",\r\n        \"baseUrl\": \"https://www.google.fr\",\r\n        \"search\": \"q\"\r\n    }",
+									"raw": "{\r\n    \"enable\": true,\r\n    \"name\": \"Pole emploie\",\r\n    \"location\": \"lieux\",\r\n    \"baseUrl\": \"https://candidat.pole-emploi.fr/offres/recherche\",\r\n    \"search\": \"motsCles\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -254,7 +190,7 @@
 					"name": "Users",
 					"item": [
 						{
-							"name": "loginUser",
+							"name": "loginUserAsFixer",
 							"event": [
 								{
 									"listen": "test",
@@ -272,7 +208,47 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"jio_sa\",\r\n    \"password\": \"jio_sadmin\"\r\n}",
+									"raw": "{\r\n    \"username\": \"fixer\",\r\n    \"password\": \"fixer\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/users/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginUserAsAdmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"accessTokenAdmin\", jsonData.accessToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -322,7 +298,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"firstname\": \"create_test\",\r\n    \"lastname\": \"create_test\",\r\n    \"email\": \"create_test@test.fr\",\r\n    \"username\": \"create_test\",\r\n    \"role\": \"{{roleAdmin}}\",\r\n    \"password\": \"create_test\",\r\n    \"confirmPassword\": \"create_test\"\r\n}",
+									"raw": "{\r\n    \"firstname\": \"create_test\",\r\n    \"lastname\": \"create_test\",\r\n    \"email\": \"create_test2@test.fr\",\r\n    \"username\": \"create_test2\",\r\n    \"password\": \"create_test\",\r\n    \"confirmPassword\": \"create_test\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -386,14 +362,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/admin/users/{{createdAdminUser}}",
+									"raw": "{{baseUrl}}/admin/users/{{createdUser}}",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"admin",
 										"users",
-										"{{createdAdminUser}}"
+										"{{createdUser}}"
 									]
 								}
 							},
@@ -424,14 +400,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/admin/users/{{createdAdminUser}}",
+									"raw": "{{baseUrl}}/admin/users/{{createdUser}}",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"admin",
 										"users",
-										"{{createdAdminUser}}"
+										"{{createdUser}}"
 									]
 								}
 							},
@@ -453,14 +429,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/admin/users/{{createdAdminUser}}",
+									"raw": "{{baseUrl}}/admin/users/{{createdUser}}",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"admin",
 										"users",
-										"{{createdAdminUser}}"
+										"{{createdUser}}"
 									]
 								}
 							},
@@ -477,13 +453,13 @@
 					"name": "Jobs",
 					"item": [
 						{
-							"name": "getjobs",
+							"name": "POST executeJob",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"location\": \"Paris\",\r\n    \"search\": \"Developpeur Web\"\r\n}",
+									"raw": "{\r\n    \"location\": \"Brest\",\r\n    \"search\": \"Developpeur Web\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -502,143 +478,42 @@
 								}
 							},
 							"response": []
-						}
-					]
-				},
-				{
-					"name": "Users",
-					"item": [
-						{
-							"name": "loginUser",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);\r",
-											"postman.setEnvironmentVariable(\"accessTokenApi\", jsonData.accessToken);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"shenor\",\r\n    \"password\": \"baptiste\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/api/users/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"login"
-									]
-								}
-							},
-							"response": []
 						},
 						{
-							"name": "createUser",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);\r",
-											"postman.setEnvironmentVariable(\"createdUser\", jsonData.id);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"firstname\": \"create_test\",\r\n    \"lastname\": \"create_test\",\r\n    \"email\": \"create_test@test.fr\",\r\n    \"username\": \"create_test\",\r\n    \"password\": \"create_test\",\r\n    \"confirmPassword\": \"create_test\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/api/users",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users"
-									]
-								}
+							"name": "GET executeJob",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
 							},
-							"response": []
-						},
-						{
-							"name": "getUser",
 							"request": {
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{baseUrl}}/api/users/{{createdUser}}",
+									"raw": "{{baseUrl}}/api/jobs?location=Paris&search=Developpeur%20Web",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"api",
-										"users",
-										"{{createdUser}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "updateUser",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/users/{{createdUser}}",
-									"host": [
-										"{{baseUrl}}"
+										"jobs"
 									],
-									"path": [
-										"api",
-										"users",
-										"{{createdUser}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "deleteUser",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/users/{{createdUser}}",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{createdUser}}"
+									"query": [
+										{
+											"key": "location",
+											"value": "Paris"
+										},
+										{
+											"key": "search",
+											"value": "Developpeur%20Web"
+										}
 									]
 								}
 							},

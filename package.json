@@ -1,51 +1,47 @@
 {
-    "name": "api_jobinone",
-    "version": "1.0.0",
-    "description": "Scraper to find a job",
-    "main": "server.js",
+    "name": "ecv-node-api",
+    "version": "1.0.1",
+    "description": "Cours de NodeJS API",
+    "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "npx nodemon server.js",
-        "dev_debug": "npx nodemon --inspect server.js",
-        "setupDB": "sh setup_db.sh",
-        "start": "node server.js"
+        "setup.dev": "sh setup.dev.sh",
+        "setup.prod": "sh setup.prod.sh",
+        "start": "node index.js",
+        "dev": "npx nodemon index.js",
+        "test": "jest"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/BCollignonEcv/api_jobinone.git"
+        "url": "git+https://github.com/BCollignonEcv/ECV-node-api.git"
     },
     "keywords": [
-        "scraper",
-        "node",
-        "job"
+        "NODEJS",
+        "API",
+        "SCRAPER"
     ],
-    "author": "Baptiste COLLIGNON",
+    "author": "BCollignonEcv",
     "license": "ISC",
-    "engines": {
-        "node": "16.x"
-    },
     "bugs": {
-        "url": "https://github.com/BCollignonEcv/api_jobinone/issues"
+        "url": "https://github.com/BCollignonEcv/ECV-node-api/issues"
     },
-    "homepage": "https://github.com/BCollignonEcv/api_jobinone#readme",
+    "homepage": "https://github.com/BCollignonEcv/ECV-node-api#readme",
     "dependencies": {
-        "axios": "^0.24.0",
+        "axios": "^0.26.1",
         "bcrypt": "^5.0.1",
-        "body-parser": "^1.19.1",
+        "body-parser": "^1.20.0",
         "cheerio": "^1.0.0-rc.10",
         "cors": "^2.8.5",
-        "dotenv": "^12.0.4",
-        "express": "^4.17.2",
-        "express-joi-validation": "^5.0.1",
-        "got": "^12.0.1",
-        "joi": "^17.5.0",
-        "jsdom": "^19.0.0",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "express-validator": "^6.14.0",
         "jsonwebtoken": "^8.5.1",
-        "pg": "^8.7.1",
+        "path": "^0.12.7",
+        "pg": "^8.7.3",
         "pg-hstore": "^2.3.4",
-        "sequelize": "^6.13.0",
+        "sequelize": "^6.18.0",
         "sequelize-cli": "^6.4.1",
-        "sqlite3": "^5.0.2",
+        "swagger-jsdoc": "^6.2.0",
+        "swagger-ui-express": "^4.3.0",
         "uuid": "^8.3.2"
     },
     "devDependencies": {

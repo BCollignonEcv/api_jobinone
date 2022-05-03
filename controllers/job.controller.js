@@ -1,11 +1,11 @@
 const models = require("../models");
-const Scraper = require('../class/scraper.class');
-const sourceController = require('../controllers/source.controller');
-
 const Source = models.Source;
 
+const Scraper = require('../services/scraper.service');
+
+
 module.exports = {
-    getJobs: async (req, res) => {
+    executeJob: async (req, res) => {
         try {
             const data = {};
             if(req.method === 'GET'){
@@ -14,20 +14,28 @@ module.exports = {
             }
             req.body.search = req.body.search.replace(/\s/g, '%20')
             let sources = await Source.findAll({ raw: true, where: { enable: true } });
-            // let sources = await sourceController.getSources(req);
             if(sources){
                 for (const source of sources){
                     let scraper = new Scraper(req, source);
-                    await scraper.scrapeData();
-                    scraper.sortData();
-                    data.jobs = scraper.get();
+                    try {
+                        await scraper.scrape();
+                    } catch (error) {
+                        throw Error('Something went wrong during scraping')
+                    }
+                    if(scraper.jobs.status != 'OK'){
+                        res.send(scraper.jobs.data); 
+                        return;
+                    }
+                    data[source.name] = { jobs: scraper.jobs.data }
                 }
-                if(data.jobs){
+                if(data){
                     res.json(data);
                 }
             }
         } catch (err) {
-            console.log(err)
+            let statusCode = err.errorStatus || 500;
+            let errorMessage = err.message || "internal error";
+            res.status(statusCode).json(errorMessage);
         }
     },
 }

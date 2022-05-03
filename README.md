@@ -1,56 +1,104 @@
-# AllJobinOne
+# ECV NODE API
+
+Live : <https://ecv-node-api-project.herokuapp.com/>
+
+## Groupe
+
+1. Baptiste COLLIGNON : baptiste.collignon@mail-ecv.fr
+2. Vincent MANACHEM : vincent.manachem@mail-ecv.fr
+3. Gautier MAIRE : gautier.maire@mail-ecv.fr
+4. Stan DELAMOURD : stan.delamourd@mail-ecv.fr
 
 ## Setup
 
-    sh start.sh
+### DEV
 
-## Project
+```bash
+#bash
+git clone git@github.com:BCollignonEcv/ECV-node-api-project.git
+cd ECV-node-api-project
+npm run setup.dev
+```
 
-Find a job can be tiresome, too many website, too many time the same proposition. AllJobinOne allow you to find a job on only one app.
+### PROD
 
-## Fonctionnality
+```bash
+#bash
+git clone git@github.com:BCollignonEcv/ECV-node-api-project.git
+cd ECV-node-api-project
+npm run setup.prod
+```
 
-## What's next
+## API Documentation
 
-1. Release : 2.0.0 -> Add job offer library
-    1. Release : 2.1.0 -> Add Linkedin job offer : https://www.linkedin.com/jobs/
-    2. Release : 2.2.0 -> Add Monster offers : https://www.monster.fr/
-    3. Release : 2.3.0 -> Add Parisjob offers : https://www.parisjob.com/
-    4. Release : 2.4.0 -> Add WelcomeToTheJungle offers : https://www.welcometothejungle.com/fr
-    5. Release : 2.5.0 -> Add Hellowork offers : https://www.hellowork.com/
-    6. Release : 2.6.0 -> Add MeteoJob offers : https://www.meteojob.com/
-    7. Release : 2.7.0 -> Add PagePersonnel offers : https://www.pagepersonnel.fr/
-    8. Release : 2.7.0 -> Add Apec offers : https://www.apec.fr/
-2. Release : 3.0.0 -> Add functionnality
-    1. Release : 3.1.0 Filter duplicate proposition
-    2. Release : 3.2.0 -> Add favorite Job
-    3. Release : 3.3.0 -> Add job alert
-3. Release : 4.0.0 -> Create user profile allowing you to answer to proposition, no matter the job library website it as been posted on.
-4. Release : 5.0.0 -> Post proposition on all job library website
+To view the list of available APIs and their specifications, run the server and go to `http://localhost:8080/docs/` in your browser. This documentation page is automatically generated using the [swagger](https://swagger.io/) definitions written as comments in the route files.
 
-## Technical
+## TODO
 
-### App
+### Global
 
-- Ionic Vue.js
+* [x] Setup
+* [x] Postman
+* [x] Swagger
+* [x] Deploy
 
-### API
+#### Middlewares
 
-- Node.js
+* [x] Authentification
+* [x] Authorization
 
-#### Dependency
+#### Services
 
-- body-parser
-- dotenv
-- express
-- express-joi-validation
-- joi
-- sequelize
-- sequelize-cli
-- mysql
-- uuid
+* [x] Scraper
 
-## Tuto
+### User
 
-https://www.bezkoder.com/node-js-express-sequelize-mysql/
-https://www.bezkoder.com/docker-compose-nodejs-mysql/
+* [x] Models
+* [x] Migrations
+* [x] Seeders
+* [x] Routes
+* [x] Controllers
+* [x] Validator
+
+### Source
+
+* [x] Models
+* [x] Migrations
+* [x] Seeders
+* [x] Routes
+* [x] Controllers
+* [x] Validator
+
+## PROD Dependencies
+
+* [Express](https://www.npmjs.com/package/express)
+
+* [Axios](https://www.npmjs.com/package/axios)
+
+* [Sequelize](https://www.npmjs.com/package/sequelize)
+
+* [Bcrypt](https://www.npmjs.com/package/bcrypt)
+
+* [Body-parser](https://www.npmjs.com/package/body-parser)
+
+* [Cors](https://www.npmjs.com/package/cors)
+
+* [Dotenv](https://www.npmjs.com/package/dotenv)
+
+* [Uuid](https://www.npmjs.com/package/uuid)
+
+* [cheerio](https://www.npmjs.com/package/cheerio)
+
+* [path](https://www.npmjs.com/package/path)
+
+* [pg](https://www.npmjs.com/package/pg)
+
+* [pg-hstore](https://www.npmjs.com/package/pg-hstore)
+
+* [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
+
+* [swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc)
+
+## DEV Dependencies
+
+* [sqlite3](https://www.npmjs.com/package/sqlite3)

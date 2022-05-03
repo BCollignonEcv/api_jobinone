@@ -1,0 +1,106 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuidv4
+        firsname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        role:
+          type: string
+      example:
+        id: 123e4567-e89b-12d3-a456-426614174000
+        firstname: example
+        lastname: example
+        email: example@example.com
+        username: example
+        password: Password123
+        role: Role
+
+    Source:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuidv4
+        enable:
+          type: boolean
+        name:
+          type: string
+        baseUrl:
+          type: string
+        location:
+          type: string
+        search:
+          type: string
+        jobOfferTag:
+          type: string
+        titleTag:
+          type: string
+        companyTag:
+          type: string
+        urlTag:
+          type: string
+        salaryTag:
+          type: string
+        locationTag:
+          type: string
+        dateTag:
+          type: string
+        descriptionTag:
+          type: string
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 401
+            message: Please authenticate
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 403
+            message: Forbidden
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            message: Not found
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
