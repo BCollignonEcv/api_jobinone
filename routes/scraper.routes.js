@@ -1,27 +1,27 @@
 const express = require('express');
 const router = express.Router();
 
-const controller = require('../controllers/job.controller');
-const validator = require('../middlewares/validators/job.validator');
+const controller = require('../controllers/scraper.controller');
+const validator = require('../middlewares/validators/scraper.validator');
 
-router.post('/', validator.validateJobBody, controller.executeJob)
-router.get('/', validator.validateJobParam, controller.executeJob)
+router.post('/', validator.validateJobBody, controller.scrape)
+router.get('/', validator.validateJobParam, controller.scrape)
 
 module.exports = router;
 
 /**
  * @swagger
  * tags:
- *   name: Jobs
- *   description: Job retrieval
+ *   name: Scraper
+ *   description: Scraper retrieval
  */
 
 /**
  * @swagger
- * /api/jobs:
+ * /api/scraper:
  *   post:
- *     summary: Get jobs with scrapper (requestBody)
- *     tags: [Jobs]
+ *     summary: Get execution scrapper (requestBody)
+ *     tags: [Scraper]
  *     requestBody:
  *       required: true
  *       content:
@@ -62,7 +62,7 @@ module.exports = router;
  * /api/jobs:
  *   get:
  *     summary: Get jobs with scrapper (query params)
- *     tags: [Jobs]
+ *     tags: [Scrapers]
  *     parameters:
  *       - in: query
  *         name: location
