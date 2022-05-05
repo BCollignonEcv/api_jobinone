@@ -1,10 +1,13 @@
 # ECV NODE API
 
-Live : <https:///>
+Live : <https://ecv-node-api-project.herokuapp.com/>
 
-## Author
+## Groupe
 
 1. Baptiste COLLIGNON : baptiste.collignon@mail-ecv.fr
+2. Vincent MANACHEM : vincent.manachem@mail-ecv.fr
+3. Gautier MAIRE : gautier.maire@mail-ecv.fr
+4. Stan DELAMOURD : stan.delamourd@mail-ecv.fr
 
 ## Setup
 
@@ -12,8 +15,8 @@ Live : <https:///>
 
 ```bash
 #bash
-git clone git@github.com:BCollignonEcv/api_open_scraper.git
-cd api_open_scraper
+git clone git@github.com:BCollignonEcv/ECV-node-api-project.git
+cd ECV-node-api-project
 npm run setup.dev
 ```
 
@@ -21,8 +24,8 @@ npm run setup.dev
 
 ```bash
 #bash
-git clone git@github.com:BCollignonEcv/api_open_scraper.git
-cd api_open_scraper
+git clone git@github.com:BCollignonEcv/ECV-node-api-project.git
+cd ECV-node-api-project
 npm run setup.prod
 ```
 

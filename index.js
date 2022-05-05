@@ -5,9 +5,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const sourceRoutes = require('./routes/dataModel.routes');
+const sourceRoutes = require('./routes/source.routes');
 const userRoutes = require('./routes/user.routes');
-const scraperRoutes = require('./routes/scraper.routes');
+const jobRoutes = require('./routes/job.routes');
 const docsRoutes = require('./routes/docs.routes');
 
 const app = express();
@@ -27,7 +27,7 @@ app.use('/admin/sources', sourceRoutes);
 app.use('/admin/users', userRoutes);
 
 // Routes Api
-app.use('/api/jobs', scraperRoutes);
+app.use('/api/jobs', jobRoutes);
 
 // Routes Docs
 app.use('/docs', docsRoutes);

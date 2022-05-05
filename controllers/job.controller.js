@@ -5,7 +5,7 @@ const Scraper = require('../services/scraper.service');
 
 
 module.exports = {
-    scrape: async (req, res) => {
+    executeJob: async (req, res) => {
         try {
             const data = {};
             if(req.method === 'GET'){
