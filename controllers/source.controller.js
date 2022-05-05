@@ -1,99 +1,119 @@
 const models = require("../models");
-const Source = models.Source;
 const { v4: uuidv4 } = require('uuid');
 
+let Source;
+
 module.exports = {
-    getSources: async (req, res) => {
-        try{
+    getSources: async(req, res) => {
+        try {
+            Source = getSourceType(req);
             let data = await Source.findAll();
-            if(data){
+            if (data) {
                 res.status(302).json(data);
-            }else{
+            } else {
                 res.status(500).send({
-                    message:
-                    err.message || "Some error occurred while retrieving Sources."
+                    message: err.message || "No sources available"
                 });
             }
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
-                message:
-                err.message || "Some error occurred while retrieving Sources."
+                error: err.error,
+                message: err.message || "Some error occurred while retrieving Sources."
             });
         }
     },
-    getSource: async (req, res) => {
-        try{
+    getSource: async(req, res) => {
+        try {
+            Source = getSourceType(req);
             const id = req.params.id;
             let data = await Source.findByPk(id);
-            if(data){
+            if (data) {
                 res.status(302).json(data);
-            }else{
+            } else {
                 res.status(404).send({
                     message: "Source not found !"
                 });
             }
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
-                message:
-                err.message || "Some error occurred while retrieving Source."
+                message: err.message || "Some error occurred while retrieving Source."
             });
         }
     },
-    createSource: async (req, res) => {
-        try{
+    createSource: async(req, res) => {
+        try {
+            Source = getSourceType(req);
             let source = req.body;
             source.id = uuidv4();
             let data = await Source.create(source)
-            if(data){
+            if (data) {
                 res.json(data);
-            }else{
+            } else {
                 throw `Some error occurred while creating Source.`;
             }
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
-                message:
-                err.message || "Some error occurred while creating Source."
+                message: err.message || "Some error occurred while creating Source."
             });
         }
     },
-    updateSource: async (req, res) => {
-        try{
+    updateSource: async(req, res) => {
+        try {
+            Source = getSourceType(req);
             const id = req.params.id;
             let data = await Source.update(req.body, {
-                where: {id: id}
+                where: { id: id }
             })
-            if(data){
+            if (data) {
                 res.status(302).json(data);
-            }else{
+            } else {
                 res.status(404).send({
                     message: "Source not found !"
                 });
             }
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
-                message:
-                err.message || "Some error occurred while updating Source."
+                message: err.message || "Some error occurred while updating Source."
             });
         }
     },
-    deleteSource: async (req, res) => {
+    deleteSource: async(req, res) => {
         try {
+            Source = getSourceType(req);
             const id = req.params.id;
-            let data = await Source.destroy({where: { id: id }});
-            if(data === 1){
+            let data = await Source.destroy({ where: { id: id } });
+            if (data === 1) {
                 res.status(202).send({
                     message: "Source deleted !"
                 });
-            }else{
+            } else {
                 res.status(404).send({
                     message: `Source not found !`
                 });
-            }  
+            }
         } catch (err) {
             res.status(500).send({
-                message:
-                err.message || "Some error occurred while deleting Source."
+                message: err.message || "Some error occurred while deleting Source."
             });
         }
+    }
+}
+
+const getSourceType = (req) => {
+    switch (req._parsedUrl.path) {
+        case 'sources':
+            throw ({
+                error: "Missing source type",
+                message: "You need to specify the type of source you are looking for"
+            });
+        case '/jobs':
+            return models.JobSource
+        case '/dwellings':
+            return models.DwellingSource
+        default:
+            throw ({
+                error: "This source type is no handle yet",
+                message: "Only Jobs and Dwelling scaper are available"
+            });
     }
 }
