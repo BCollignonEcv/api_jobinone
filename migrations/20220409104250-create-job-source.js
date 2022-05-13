@@ -1,0 +1,67 @@
+'use strict';
+module.exports = {
+    async up(queryInterface, Sequelize) {
+        await queryInterface.createTable('JobSources', {
+            id: {
+                allowNull: false,
+                primaryKey: true,
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUID
+            },
+            enable: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+            },
+            name: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            baseUrl: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            locationParam: {
+                type: Sequelize.STRING
+            },
+            searchParam: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            jobContainer: {
+                type: Sequelize.STRING
+            },
+            titleTag: {
+                type: Sequelize.STRING
+            },
+            companyTag: {
+                type: Sequelize.STRING
+            },
+            urlTag: {
+                type: Sequelize.STRING
+            },
+            salaryTag: {
+                type: Sequelize.STRING
+            },
+            locationTag: {
+                type: Sequelize.STRING
+            },
+            dateTag: {
+                type: Sequelize.STRING
+            },
+            descriptionTag: {
+                type: Sequelize.STRING
+            },
+            createdAt: {
+                allowNull: false,
+                type: Sequelize.DATE
+            },
+            updatedAt: {
+                allowNull: false,
+                type: Sequelize.DATE
+            }
+        });
+    },
+    async down(queryInterface, Sequelize) {
+        await queryInterface.dropTable('JobSources');
+    }
+};

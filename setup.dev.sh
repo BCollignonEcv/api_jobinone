@@ -8,15 +8,14 @@ echo -------------------
 echo
 npm install
 
-# Reset Sqlite database
-echo
-echo ---------------------
-echo ---- db:undo:all ----
-echo ---------------------
-echo
-
 if [[ -f "data/dev-db.sqlite3" ]]
 then
+    # Reset Sqlite database
+    echo
+    echo ---------------------
+    echo ---- db:undo:all ----
+    echo ---------------------
+    echo
     npx sequelize-cli db:migrate:undo:all
 fi
 
