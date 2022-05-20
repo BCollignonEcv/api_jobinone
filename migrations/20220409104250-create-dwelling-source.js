@@ -20,12 +20,6 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            params: {
-                type: Sequelize.JSON
-            },
-            tags: {
-                type: Sequelize.JSON
-            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

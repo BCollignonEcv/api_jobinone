@@ -17,12 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         enable: DataTypes.BOOLEAN,
         name: DataTypes.STRING,
         baseUrl: DataTypes.STRING,
-        params: {
-            location: DataTypes.STRING
-        },
-        tags: {
-            container: DataTypes.STRING
-        }
     }, {
         sequelize,
         modelName: 'DwellingSource',

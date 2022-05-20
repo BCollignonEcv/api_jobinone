@@ -1,12 +1,12 @@
 const models = require("../models");
 const { v4: uuidv4 } = require('uuid');
-
+const SourceHelpers = require('../helpers/source.helpers');
 let Source;
 
 module.exports = {
     getSources: async(req, res) => {
         try {
-            Source = getSourceType(req);
+            Source = SourceHelpers.getSourceType(models, req);
             let data = await Source.findAll();
             if (data) {
                 res.status(302).json(data);
@@ -24,7 +24,7 @@ module.exports = {
     },
     getSource: async(req, res) => {
         try {
-            Source = getSourceType(req);
+            Source = SourceHelpers.getSourceType(models, req);
             const id = req.params.id;
             let data = await Source.findByPk(id);
             if (data) {
@@ -42,7 +42,7 @@ module.exports = {
     },
     createSource: async(req, res) => {
         try {
-            Source = getSourceType(req);
+            Source = SourceHelpers.getSourceType(models, req);
             let source = req.body;
             source.id = uuidv4();
             let data = await Source.create(source)
@@ -59,7 +59,7 @@ module.exports = {
     },
     updateSource: async(req, res) => {
         try {
-            Source = getSourceType(req);
+            Source = SourceHelpers.getSourceType(models, req);
             const id = req.params.id;
             let data = await Source.update(req.body, {
                 where: { id: id }
@@ -79,7 +79,7 @@ module.exports = {
     },
     deleteSource: async(req, res) => {
         try {
-            Source = getSourceType(req);
+            Source = SourceHelpers.getSourceType(models, req);
             const id = req.params.id;
             let data = await Source.destroy({ where: { id: id } });
             if (data === 1) {
@@ -96,24 +96,5 @@ module.exports = {
                 message: err.message || "Some error occurred while deleting Source."
             });
         }
-    }
-}
-
-const getSourceType = (req) => {
-    switch (req._parsedUrl.path) {
-        case 'sources':
-            throw ({
-                error: "Missing source type",
-                message: "You need to specify the type of source you are looking for"
-            });
-        case '/jobs':
-            return models.JobSource
-        case '/dwellings':
-            return models.DwellingSource
-        default:
-            throw ({
-                error: "This source type is no handle yet",
-                message: "Only Jobs and Dwelling scaper are available"
-            });
     }
 }

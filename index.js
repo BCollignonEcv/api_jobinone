@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const sourceRoutes = require('./routes/source.routes');
-const sourceTypeRoutes = require('./routes/sourceType.routes');
 const userRoutes = require('./routes/user.routes');
 const scrapeRoutes = require('./routes/scrape.routes');
 const docsRoutes = require('./routes/docs.routes');

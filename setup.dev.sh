@@ -42,4 +42,4 @@ echo ----- run:API -----
 echo -------------------
 echo
 
-npm run start
+npm run dev

@@ -1,13 +1,13 @@
 const models = require("../models");
-const Source = models.Source;
-
+const SourceHelpers = require('../helpers/source.helpers');
 const Scraper = require('../services/scraper.service');
-
+let Source;
 
 module.exports = {
     scrape: async (req, res) => {
         try {
             const data = {};
+            Source = SourceHelpers.getSourceType(models, req);
             if(req.method === 'GET'){
                 req.body.location = req.query.location;
                 req.body.search = req.query.search;
@@ -26,7 +26,7 @@ module.exports = {
                         res.send(scraper.jobs.data); 
                         return;
                     }
-                    data[source.name] = { jobs: scraper.jobs.data }
+                    data.push(scraper.jobs.data)
                 }
                 if(data){
                     res.json(data);

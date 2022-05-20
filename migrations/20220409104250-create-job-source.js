@@ -20,6 +20,10 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            pathUrl: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             locationParam: {
                 type: Sequelize.STRING
             },
@@ -27,7 +31,7 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            jobContainer: {
+            container: {
                 type: Sequelize.STRING
             },
             titleTag: {

@@ -1,6 +1,7 @@
 'use strict';
 const cheerio = require("cheerio");
 const axios = require('axios');
+const ObjectUtils = require('../utils/object.utils');
 
 
 module.exports = class Scraper {
@@ -17,7 +18,7 @@ module.exports = class Scraper {
         this.scrapedData = await executeScraper(this.url);
 
         if (this.scrapedData) {
-            this.jobs = generateJobsObject(this.dataMapping, this.scrapedData);
+            this.jobs = generateJobsObject(this.dataMapping, this.scrapedData, this.source);
             if(this.jobs.status != 'OK'){
                 if(!this.retry){
                     this.retry = true;
@@ -39,11 +40,12 @@ const executeScraper = async (url) => {
     });
 }
 
-function generateJobsObject(dataMapping, scrapedData){
+function generateJobsObject(dataMapping, scrapedData, source){
     const $ = cheerio.load(scrapedData);
     let jobs = [];
     $(dataMapping.container.tag).each((index, element) => {
-        let job = {};
+        let job = { source: source.name};
+
         Object.keys(dataMapping).forEach((key) => {
             // return if attribute should not be exported
             if('export' in dataMapping[key] && !dataMapping[key].export){
@@ -52,7 +54,11 @@ function generateJobsObject(dataMapping, scrapedData){
             if('type' in dataMapping[key]){
                 switch (dataMapping[key].type){
                     case 'url':
-                        job[key] = $(element).find(dataMapping[key].tag).html();
+                        let targetUrl = $(element).find(dataMapping[key].tag).attr('href');
+                        if(!targetUrl.startsWith('http')){
+                            targetUrl = source.baseUrl + targetUrl;
+                        }
+                        job[key] = targetUrl;
                         break;
                     default :
                         job[key] = $(element).find(dataMapping[key].tag).text();
@@ -62,24 +68,27 @@ function generateJobsObject(dataMapping, scrapedData){
                 job[key] = $(element).find(dataMapping[key].tag).text();
             }
         })
-        jobs.push(job);
+        if(isValidJob(job)){
+            jobs.push(job);
+        }
     });
     if(jobs.length > 0){
         return {
             status : 'OK',
-            data : jobs
+            data : jobs,
+            errors : {}
         };
     }else{
         return {
             status : 'ERROR',
-            data : $.html()
+            data : jobs,
+            error : { message: 'No Job found, Source may to not be up to date '}
         }
     }
 }
 
 function generateUrl(source, req){
-    let a = `http://api.scraperapi.com?api_key=5f238e1d49f1722de4d6d749aeba038d&url=${source.baseUrl}?${source.search}=${req.body.search}&${source.location}=${req.body.location}`;
-    return a;
+    return `http://api.scraperapi.com?api_key=5f238e1d49f1722de4d6d749aeba038d&url=${source.baseUrl}${source.pathUrl}?${source.searchParam}=${req.body.search}&${source.locationParam}=${req.body.location}`;
 }
 
 function generateDataMapping(source){
@@ -92,6 +101,20 @@ function generateDataMapping(source){
             return dataMapping[key.replace('Tag', '')] = { tag: source[key]};
         }
     })
-    dataMapping.container = { tag: source.jobContainer, export: false };
+    dataMapping.container = { tag: source.container, export: false };
     return dataMapping;
+}
+
+// Check is job as more than 50% full attribute
+function isValidJob(job){
+    // let counter = 0;
+    // let emptyCounter = 0;
+    // Object.keys(job).filter((key) => {
+    //     counter++;
+    //     if(!ObjectUtils.isNotEmpty(job[key])){
+    //         emptyCounter++;
+    //     }
+    // })
+    // return (emptyCounter / counter) < 0.5;
+    return true;
 }
